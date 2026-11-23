@@ -1,0 +1,216 @@
+{
+  "name": "Project 01 — Student Registration Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Students Registration Form",
+        "formDescription": "Please fill out the form below to register.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name"
+            },
+            {
+              "fieldLabel": "ID Students",
+              "fieldType": "number"
+            },
+            {
+              "fieldLabel": "Major",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Informatics Engineering "
+                  },
+                  {
+                    "option": "Communication Studies "
+                  },
+                  {
+                    "option": "Management"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Email Students",
+              "fieldType": "email"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e2a866c3-e92e-4b30-af75-7e8d0859ca30",
+      "name": "On form submission",
+      "webhookId": "",
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": "Students Registration Data",
+          "cachedResultUrl": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": ""
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "ID Students": "={{ $json['ID Students'] }}",
+            "Major": "={{ $json.Major }}",
+            "Email Students": "={{ $json['Email Students'] }}",
+            "Registration Time": "={{ $json.submittedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ID Students",
+              "displayName": "ID Students",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Major",
+              "displayName": "Major",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email Students",
+              "displayName": "Email Students",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Registration Time",
+              "displayName": "Registration Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        0
+      ],
+      "id": "b9032b7f-a141-4399-af35-c814f84fe12b",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "sender@example.com",
+        "toEmail": "admin@example.com",
+        "subject": "Students Registration Data",
+        "emailFormat": "text",
+        "text": "=Hi Admin! this is the data for each new student.\n\n{{ $json.Name }}\n{{ $json['ID Students'] }}\n{{ $json.Major }}\n{{ $json['Email Students'] }}\n{{ $json['Registration Time'] }}\n\ndata sent automatically by n8n.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "5f3fde62-2897-4277-a447-47bb3a2854c0",
+      "name": "Send an Email",
+      "webhookId": "",
+      "credentials": {
+        "smtp": {
+          "id": "",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "faec16c3-0d1a-4a1b-a114-710816796698",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+      },
+  "nodeGroups": [],
+  "id": "3Q3JIUvWJCZsQ8XR",
+  "tags": []
+}
