@@ -59,3 +59,17 @@ Screenshots and workflow files will be added to this repository.
 **Project Level:** Beginner
 
 **Project Status:** Completed and tested.
+
+## 📸 Project Evidence
+
+### 1. Workflow Overview
+
+![Student Registration Workflow](Project-01-Student-Registrations-screenshots/workflow.png)
+
+### 2. Google Sheets Registration Data
+
+![Google Sheets Evidence](Project-01-Student-Registrations-screenshots/google-sheets.png)
+
+### 3. Email Confirmation
+
+![Email Confirmation Evidence](Project-01-Student-Registrations-screenshots/email-confirmation.png)
