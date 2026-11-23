@@ -50,12 +50,6 @@ The workflow was successfully executed during testing.
 - Automated email notifications.
 - Testing workflow executions.
 
-## 📸 Project Evidence
-
-Screenshots and workflow files will be added to this repository.
-
----
-
 **Project Level:** Beginner
 
 **Project Status:** Completed and tested.
